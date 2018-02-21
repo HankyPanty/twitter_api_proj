@@ -9,7 +9,7 @@ fill.write('tweet_number,tweet_date_and_time,is_account_verified,user_country,pr
 fill.write('\n');
 inn=0;
 alpha = json.loads(fileee.read())
-while inn< 50:
+while inn< len(alpha["data_all"]):
     data= alpha["data_all"][inn]               
     
     fill.write(str(data['id']))
