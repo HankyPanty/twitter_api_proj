@@ -1,7 +1,7 @@
 # Twitter API Assignment
 ### Innovaccer API Engineering Assignment
 
-The code is divided in three parts:
+The Code is divided in three parts:
 
 1. api1.py
 2. api2.py
