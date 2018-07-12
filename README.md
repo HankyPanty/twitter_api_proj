@@ -16,3 +16,5 @@ The Code is divided in three parts:
 2. In this, the tweets can be sorted, filtered and displayed according to the requirement. I used **pymongo** a **nosql** library for python of **mongodb**. The tweets can be filtered by changing the values of variable **ppl** and **data_sort**. by changing the paramaters of `ppl=posts.find()` we can get required results.
 
 3. In this segement I extracted the important text from `pr_file.txt` and converted the data to **csv format** and returned in `list.txt` file. 
+
+####### End
