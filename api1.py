@@ -5,11 +5,12 @@ import json
 import time
 import os
 import fileinput
+count =0;
 
-ckey = 'Xw35ARp6ft61E9UK2UESi3Uxc'
-csecret = 'XCLaTEYZ2OThn1cXtszYMLGo3E4wXsx3wXs7GOZmg2u6KPcdzI'
-atoken = '899221581641154560-XNC2WqYSBEazmYD0v5b0TNZLk3EmAOU'
-asecret = 'xLNngkHwTcIwSLoznZdF4124OZh2FjWsicLqwdq49U1NO'
+ckey = 'DLJALiegzKXuQQQprO0e1Gmwz'
+csecret = 'zjXT44wJ9CTFuqcaHOFwKGwQoHE8GLpu3tb4zWi6U2AZ2iacf2'
+atoken = '899221581641154560-blDens6h7KSOTqFxjggcFK3Liuav07f'
+asecret = 'hRRW7LWHBDkBY5QDpqrtTzEc29ofDuS5ulfgXnjdI7s8w'
 
 class data_listener(StreamListener):
     try:
@@ -28,14 +29,19 @@ class data_listener(StreamListener):
             pr_file.write(data)
             pr_file.write('\n ]}')
             pr_file.close();
-            
             f=open('pr_file.txt','r')
+            global count;
             olddata=f.read()
             f.close();
             olddata = olddata.replace('[ ,','[  ');
             f=open('pr_file.txt','w')
             f.write(olddata)
             f.close();
+            count=count + 1;
+            ##Change value of count to limit the input tweets...
+            if count==50:
+                return False
+            print(count);
             return True
     except (BaseException,e):
         print('failed on the following data:',str(e));
@@ -45,12 +51,12 @@ class data_listener(StreamListener):
 
 auth= OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken,asecret)
-
 pr_file = open('pr_file.txt','w')
 pr_file.write("{ \"data_all\" : [ \n")
 pr_file.close();
-twitterStream= Stream(auth,data_listener())
+twitterStream= Stream(auth,data_listener(count))
 start = time.time();
-twitterStream.filter(track=['carbon'],filter_level='medium'.encode('utf-8'));
-#very big query!!
-# print("The query took %f seconds!" % (time.time() - start))
+twitterStream.filter(track=["Modi"]);
+
+print("The query took %f seconds! \n" % (time.time() - start));
+count=0;

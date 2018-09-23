@@ -5,23 +5,28 @@ from pymongo import MongoClient
 
 con = MongoClient('localhost:27017')
 
-con.database_names()
+con.list_database_names()
 db = con.database
 
 with open('pr_file.txt', 'r') as f:
     data=json_util.loads(f.read());
 
 posts=db.posts
-posts.insert(data["data_all"])
+posts.insert_many(data["data_all"])
 ppl_all=posts.find()
 
 
-ppl=posts.find({'created_at':'Tue Feb 20 21:02:59 +0000 2018'})
+# ppl=posts.find({'created_at':'Tue Feb 20 21:02:59 +0000 2018'})
 
-date_sort=ppl.sort([("created_at", pymongo.ASCENDING), ("user.name", pymongo.ASCENDING)])
+##conditions for sorting the data--
+date_sort=ppl_all.sort([("user.name", pymongo.ASCENDING), ("created_at", pymongo.ASCENDING)])
 
+##printing the sorted data
 for tts in date_sort:
-    print(tts,'\n \n')
-    
-for tts in date_sort:
-    date_sort.remove(tts)
+    print('(user): ',tts['user']['name'],',  (time): ',tts['created_at'],'\n(tweet):',tts['text'],'\n \n')
+
+##clearing the collection-posts in the database--
+db.posts.drop()
+# for tts in date_sort:
+#     posts.remove(tts)
+# date_sort=None;

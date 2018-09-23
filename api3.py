@@ -7,6 +7,8 @@ fileee = open('pr_file.txt','r')
 fill = open('fill.txt','w')
 fill.write('tweet_number,tweet_date_and_time,is_account_verified,user_country,profile_link');
 fill.write('\n');
+print('tweet_number,tweet_date_and_time,is_account_verified,user_country,profile_link');
+print('\n');
 inn=0;
 alpha = json.loads(fileee.read())
 while inn< len(alpha["data_all"]):
@@ -23,6 +25,8 @@ while inn< len(alpha["data_all"]):
     fill.write(',')
     fill.write(str(data['user']['id_str']))
     fill.write('\n')
+
+    print(str(data['id']),',',str(data['created_at']),',',str(data['user']['verified']),',',str(data['place']['country_code']) if data['place'] else "N/A",',',str(data['user']['id_str']))
     inn= inn+1;
 
 fill.close();
